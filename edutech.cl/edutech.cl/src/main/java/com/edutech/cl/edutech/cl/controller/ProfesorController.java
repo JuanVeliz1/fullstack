@@ -1,48 +1,36 @@
-package com.edutech.cl.edutech.cl.controller;
+package com.edutech.cl.edutech.cl.model;
 
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.edutech.cl.edutech.cl.model.Profesor;
-import com.edutech.cl.edutech.cl.service.ProfesorService;
-
-@RestController
-@RequestMapping("/api/v1/Profesores")
-public class ProfesorController {
+@Entity
+@Table(name="profesor")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Profesor {
     
-    @Autowired
-    private ProfesorService profesorService;
-    
-    @GetMapping
-    public ResponseEntity<List<Profesor>> listar(){
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-        List<Profesor> profesores = profesorService.findAll();
-        
-        if (profesores.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(profesores);
-        
-    }
+    @Column(unique = true,nullable = true,length = 13)
+    private String run;
 
-    @PostMapping
-    public Profesor agregarProfesor(@RequestBody Profesor profesor){
-        return profesorService.save(profesor);
-    }
+    @Column(nullable = false)
+    private String nombre;
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> eliminarProfesor(@PathVariable Integer id) {
-        profesorService.delete(id); 
-        return ResponseEntity.noContent().build(); 
-    
-}
+    @Column(nullable = false)
+    private String apellido;
+
+    @Column(nullable = false)
+    private String fechaNacimiento;
+
 }
