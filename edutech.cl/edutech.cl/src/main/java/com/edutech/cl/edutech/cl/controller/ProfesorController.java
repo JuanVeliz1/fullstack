@@ -1,47 +1,36 @@
-package com.edutech.cl.edutech.cl.controller;
+package com.edutech.cl.edutech.cl.model;
 
-import com.edutech.cl.edutech.cl.model.Profesor;
-import com.edutech.cl.edutech.cl.service.ProfesorService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+@Entity
+@Table(name="profesor")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Profesor {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-@RestController
-@RequestMapping("/api/v1/profesores")
-public class ProfesorController {
+    @Column(unique = true,nullable = true,length = 13)
+    private String run;
 
-    private final ProfesorService profesorService;
+    @Column(nullable = false)
+    private String nombre;
 
-    @Autowired
-    public ProfesorController(ProfesorService profesorService) {
-        this.profesorService = profesorService;
-    }
+    @Column(nullable = false)
+    private String apellido;
 
-    // Obtener todos los profesores
-    @GetMapping
-    public ResponseEntity<List<Profesor>> obtenerTodos() {
-        List<Profesor> profesores = profesorService.findAll();
+    @Column(nullable = false)
+    private String fechaNacimiento;
 
-        if (profesores.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(profesores);
-    }
-
-    // Agregar un nuevo profesor
-    @PostMapping
-    public ResponseEntity<Profesor> crearProfesor(@RequestBody Profesor profesor) {
-        Profesor nuevoProfesor = profesorService.save(profesor);
-        return ResponseEntity.ok(nuevoProfesor);
-    }
-
-    // Eliminar profesor por ID
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarProfesor(@PathVariable Integer id) {
-        profesorService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
 }
-
