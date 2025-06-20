@@ -5,7 +5,6 @@ import Asignatura.Asignatura.model.Profesor;
 import Asignatura.Asignatura.repository.AsignaturaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-// Ya no necesitamos @ExtendWith(MockitoExtension.class)
 import org.springframework.beans.factory.annotation.Autowired; // Necesario para inyectar beans de Spring
 import org.springframework.boot.test.context.SpringBootTest; // Para cargar el contexto de Spring Boot
 import org.springframework.boot.test.mock.mockito.MockBean; // Para mockear beans en el contexto de Spring
@@ -17,13 +16,13 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest // ¡Este es el cambio fundamental! Carga el contexto de Spring Boot.
+@SpringBootTest 
 public class AsignaturaServiceTest {
 
-    @MockBean // Ahora usamos @MockBean para mockear el repositorio dentro del contexto de Spring
+    @MockBean // usamos @MockBean para mockear el repositorio dentro del contexto de Spring
     private AsignaturaRepository repository;
 
-    @Autowired // Ahora inyectamos el servicio, que Spring Boot habrá creado y le habrá inyectado nuestro @MockBean
+    @Autowired // inyectamos el servicio, que Spring Boot habrá creado y le habrá inyectado nuestro @MockBean
     private AsignaturaService asignaturaService;
 
     private Profesor dummyProfesor;
