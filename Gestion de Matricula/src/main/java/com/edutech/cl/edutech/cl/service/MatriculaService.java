@@ -33,6 +33,8 @@ public class MatriculaService {
         matriculaRepository.deleteById(id);
     }
 
-    
+    public void deleteById(long id){
+        matriculaRepository.deleteById(id);
+    }
     
 }

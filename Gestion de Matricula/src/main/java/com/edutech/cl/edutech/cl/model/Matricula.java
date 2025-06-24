@@ -1,5 +1,7 @@
 package com.edutech.cl.edutech.cl.model;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,16 +11,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="matricula")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Matricula {
+public class Matricula extends RepresentationModel<Matricula>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +36,5 @@ public class Matricula {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Alumno alumno;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Curso curso;
     
 }
