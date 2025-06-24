@@ -2,6 +2,8 @@ package com.edutech.cl.edutech.cl.model;
 
 import java.util.List;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -15,16 +17,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="curso")
-@Data
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class Curso {
+ 
+public class Curso extends RepresentationModel<Curso> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +47,6 @@ public class Curso {
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore //Este parametro se ignora una vez que ingresemos el JSON en postaman 
     private List<Alumno> alumnos; //Para poder visualizar los alumnos al hacer consulta personalizada en CONTROLLER
+
 
 }
